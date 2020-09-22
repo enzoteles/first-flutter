@@ -14,6 +14,10 @@ class ByteBankApp extends StatelessWidget {
 }
 
 class Formulario extends StatelessWidget {
+
+  final TextEditingController _controladorNomeProduto = TextEditingController();
+  final TextEditingController _controladorValor = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,6 +29,7 @@ class Formulario extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
+              controller: _controladorNomeProduto,
               obscureText: true,
               decoration: InputDecoration(
                 labelText: 'Nome do Produto',
@@ -33,6 +38,7 @@ class Formulario extends StatelessWidget {
           ), Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
+              controller: _controladorValor,
               obscureText: true,
               decoration: InputDecoration(
                 icon: Icon(Icons.monetization_on),
@@ -41,6 +47,14 @@ class Formulario extends StatelessWidget {
             ),
           ),
           RaisedButton(
+            onPressed: () {
+              final String nomeProd = _controladorNomeProduto.text;
+              final int valorProd = int.tryParse(_controladorValor.text);
+              if(nomeProd != null && valorProd != null){
+                final trans = Transferencia(nomeProd, valorProd);
+                debugPrint("${trans.valor}");
+              }
+            },
             child: Text('Confirmar', style: TextStyle(fontSize: 20)),
           ),
           const SizedBox(height: 30),
@@ -58,7 +72,7 @@ class ListaDeTransferencia extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Transferências"),
       ),
-      body: CardItem(Transferencia("Produto", "1300")),
+      body: CardItem(Transferencia("Produto", 1300)),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
       ),
@@ -87,8 +101,12 @@ class CardItem extends StatelessWidget {
 class Transferencia{
 
   final String descricao;
-  final String valor;
+  final int valor;
 
   Transferencia(this.descricao, this.valor);
 
+  @override
+  String toString() {
+    return 'Transferencia{descricao: $descricao, valor: $valor}';
+  }
 }
