@@ -25,40 +25,56 @@ class Formulario extends StatelessWidget {
         title: const Text("Formulário"),
       ),
       body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _controladorNomeProduto,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: 'Nome do Produto',
-              ),
-            ),
-          ), Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
-              controller: _controladorValor,
-              obscureText: true,
-              decoration: InputDecoration(
-                icon: Icon(Icons.monetization_on),
-                labelText: 'Valor do Produto',
-              ),
-            ),
-          ),
+        children: <Widget>[
+          Editor(
+              controlador: _controladorNomeProduto,
+              rotulo: "Nome Produto"),
+          Editor(
+            controlador: _controladorValor,
+            rotulo: "Valor Produto",
+            icone: Icons.monetization_on),
           RaisedButton(
-            onPressed: () {
-              final String nomeProd = _controladorNomeProduto.text;
-              final int valorProd = int.tryParse(_controladorValor.text);
-              if(nomeProd != null && valorProd != null){
-                final trans = Transferencia(nomeProd, valorProd);
-                debugPrint("${trans.valor}");
-              }
-            },
+            onPressed: () => _criaTransferencia(context),
             child: Text('Confirmar', style: TextStyle(fontSize: 20)),
           ),
           const SizedBox(height: 30),
         ],
+      ),
+    );
+  }
+
+  void _criaTransferencia(BuildContext context) {
+     final String nomeProd = _controladorNomeProduto.text;
+    final int valorProd = int.tryParse(_controladorValor.text);
+    if(nomeProd != null && valorProd != null){
+      final trans = Transferencia(nomeProd, valorProd);
+      Scaffold.of(context).showSnackBar(
+        SnackBar(
+          content: Text('$trans'),
+        ),
+      );
+    }
+  }
+}
+
+class Editor extends StatelessWidget {
+
+  final TextEditingController controlador;
+  final String rotulo;
+  final IconData icone;
+  Editor({this.controlador, this.rotulo, this.icone});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: TextField(
+        controller: controlador,
+        obscureText: false,
+        decoration: InputDecoration(
+          labelText: rotulo,
+          icon: icone != null ? Icon(icone) : null
+        ),
       ),
     );
   }
