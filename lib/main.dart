@@ -81,28 +81,50 @@ class Editor extends StatelessWidget {
   }
 }
 
+class ListaDeTransferenciaState extends State<ListaDeTransferencia>{
 
-class ListaDeTransferencia extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    widget._transferencias.add(Transferencia("test", 1));
     return Scaffold(
       appBar: AppBar(
         title: const Text("Transferências"),
       ),
-      body: CardItem(Transferencia("Produto", 1300)),
+      body: ListView.builder(
+        itemCount: widget._transferencias.length,
+        itemBuilder: (context, index){
+          final transferencia = widget._transferencias[index];
+          debugPrint('${transferencia.descricao}');
+          return CardItem(transferencia);
+        },
+      ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-            //navigator para navegar entre as telas
-            final Future<Transferencia> future = Navigator.push(context, MaterialPageRoute(builder: (context){
-                return Formulario();
-            }));
-            future.then((transferenciaRecebida){
-              debugPrint('$transferenciaRecebida');
+          //navigator para navegar entre as telas
+          final Future<Transferencia> future = Navigator.push(context, MaterialPageRoute(builder: (context){
+            return Formulario();
+          }));
+          future.then((transferenciaRecebida){
+            debugPrint('$transferenciaRecebida');
+            widget._transferencias.add(transferenciaRecebida);
+            widget._transferencias.forEach((element) {
+              debugPrint('$element');
             });
+          });
         },
       ),
     );
+  }
+
+}
+
+class ListaDeTransferencia extends StatefulWidget {
+
+  final List<Transferencia> _transferencias = List();
+  @override
+  State<StatefulWidget> createState() {
+    return ListaDeTransferenciaState();
   }
 }
 
