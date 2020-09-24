@@ -85,16 +85,14 @@ class ListaDeTransferenciaState extends State<ListaDeTransferencia>{
 
   @override
   Widget build(BuildContext context) {
-    widget._transferencias.add(Transferencia("test", 1));
     return Scaffold(
       appBar: AppBar(
         title: const Text("Transferências"),
       ),
       body: ListView.builder(
         itemCount: widget._transferencias.length,
-        itemBuilder: (context, index){
-          final transferencia = widget._transferencias[index];
-          debugPrint('${transferencia.descricao}');
+        itemBuilder: (context, indice){
+          final transferencia = widget._transferencias[indice];
           return CardItem(transferencia);
         },
       ),
@@ -108,9 +106,6 @@ class ListaDeTransferenciaState extends State<ListaDeTransferencia>{
           future.then((transferenciaRecebida){
             debugPrint('$transferenciaRecebida');
             widget._transferencias.add(transferenciaRecebida);
-            widget._transferencias.forEach((element) {
-              debugPrint('$element');
-            });
           });
         },
       ),
