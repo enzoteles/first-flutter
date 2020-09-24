@@ -105,8 +105,11 @@ class ListaDeTransferenciaState extends State<ListaDeTransferencia>{
           }));
           future.then((transferenciaRecebida){
             debugPrint('$transferenciaRecebida');
-            widget._transferencias.add(transferenciaRecebida);
+            setState(() {
+              widget._transferencias.add(transferenciaRecebida);
+            });
           });
+
         },
       ),
     );
