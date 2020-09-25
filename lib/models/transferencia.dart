@@ -1,7 +1,4 @@
 
-/**
- * model de transferencia para ser usado nas transaçoes
- * */
 class Transferencia{
 
   final String descricao;

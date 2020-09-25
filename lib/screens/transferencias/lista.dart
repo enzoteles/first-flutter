@@ -1,5 +1,4 @@
 
-import 'package:bytebank/main.dart';
 import 'package:bytebank/models/transferencia.dart';
 import 'package:flutter/material.dart';
 
@@ -44,9 +43,6 @@ class ListaDeTransferenciaState extends State<ListaDeTransferencia>{
 
 }
 
-/**
- * Tela de Lista que mostra as lista de transação
- * */
 class ListaDeTransferencia extends StatefulWidget {
 
   final List<Transferencia> _transferencias = List();
