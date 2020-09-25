@@ -1,4 +1,4 @@
-#Thu Sep 24 17:36:51 BRT 2020
+#Fri Sep 25 14:53:35 BRT 2020
 base.0=/Users/t2506nzd/Documents/project/first-flutter/build/app/intermediates/dex/debug/mergeDexDebug/out/classes.dex
 path.0=classes.dex
 renamed.0=classes.dex

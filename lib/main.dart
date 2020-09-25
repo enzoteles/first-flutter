@@ -13,7 +13,15 @@ class ByteBankApp extends StatelessWidget {
   }
 }
 
-class Formulario extends StatelessWidget {
+/**
+ * Tela de Formulário que inclui uma transaçao
+ * */
+class Formulario extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => FormularioState();
+}
+
+class FormularioState extends State<Formulario> {
 
   final TextEditingController _controladorNomeProduto = TextEditingController();
   final TextEditingController _controladorValor = TextEditingController();
@@ -24,38 +32,41 @@ class Formulario extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Formulário"),
       ),
-      body: Column(
-        children: <Widget>[
-          Editor(
-              controlador: _controladorNomeProduto,
-              rotulo: "Nome Produto"),
-          Editor(
-            controlador: _controladorValor,
-            rotulo: "Valor Produto",
-            icone: Icons.monetization_on),
-          RaisedButton(
-            onPressed: () => _criaTransferencia(context),
-            child: Text('Confirmar', style: TextStyle(fontSize: 20)),
-          ),
-          const SizedBox(height: 30),
-        ],
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            Editor(
+                controlador: _controladorNomeProduto,
+                rotulo: "Nome Produto"),
+            Editor(
+                controlador: _controladorValor,
+                rotulo: "Valor Produto",
+                icone: Icons.monetization_on),
+            RaisedButton(
+              onPressed: () => _criaTransferencia(context),
+              child: Text('Confirmar', style: TextStyle(fontSize: 20)),
+            ),
+            const SizedBox(height: 30),
+          ],
+        ),
       ),
     );
   }
 
   void _criaTransferencia(BuildContext context) {
-     final String nomeProd = _controladorNomeProduto.text;
+    final String nomeProd = _controladorNomeProduto.text;
     final int valorProd = int.tryParse(_controladorValor.text);
     if(nomeProd != null && valorProd != null){
       final trans = Transferencia(nomeProd, valorProd);
       Navigator.pop(context, trans);
-     /* Scaffold.of(context).showSnackBar(
+      /* Scaffold.of(context).showSnackBar(
         SnackBar(
           content: Text('$trans'),
         ),
       );*/
     }
   }
+
 }
 
 class Editor extends StatelessWidget {
@@ -105,8 +116,11 @@ class ListaDeTransferenciaState extends State<ListaDeTransferencia>{
           }));
           future.then((transferenciaRecebida){
             debugPrint('$transferenciaRecebida');
+            //update the list in the screen
             setState(() {
-              widget._transferencias.add(transferenciaRecebida);
+              if(transferenciaRecebida != null){
+                widget._transferencias.add(transferenciaRecebida);
+              }
             });
           });
 
@@ -117,6 +131,9 @@ class ListaDeTransferenciaState extends State<ListaDeTransferencia>{
 
 }
 
+/**
+ * Tela de Lista que mostra as lista de transação
+ * */
 class ListaDeTransferencia extends StatefulWidget {
 
   final List<Transferencia> _transferencias = List();
@@ -144,6 +161,9 @@ class CardItem extends StatelessWidget {
   }
 }
 
+/**
+ * model de transferencia para ser usado nas transaçoes
+ * */
 class Transferencia{
 
   final String descricao;
