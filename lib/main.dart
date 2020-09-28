@@ -120,7 +120,7 @@ class _widegetLoginState extends State<widegetLogin> {
       minWidth: MediaQuery.of(context).size.width,
       padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
       child: RaisedButton(
-        color: Color(0xff01A0C7),
+        color: Colors.blueAccent[900],
         child: Text('Login', textAlign: TextAlign.center,
           style: style.copyWith(
             color: Colors.white,
