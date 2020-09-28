@@ -1,12 +1,15 @@
-
 import 'package:flutter/material.dart';
 
 class Editor extends StatelessWidget {
-
   final TextEditingController controlador;
   final String rotulo;
   final IconData icone;
-  Editor({this.controlador, this.rotulo, this.icone});
+
+  Editor({
+    this.controlador,
+    this.rotulo,
+    this.icone,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,9 +19,7 @@ class Editor extends StatelessWidget {
         controller: controlador,
         obscureText: false,
         decoration: InputDecoration(
-            labelText: rotulo,
-            icon: icone != null ? Icon(icone) : null
-        ),
+            labelText: rotulo, icon: icone != null ? Icon(icone) : null),
       ),
     );
   }
