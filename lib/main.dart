@@ -38,6 +38,10 @@ class _widegetLoginState extends State<widegetLogin> {
       obscureText: false,
       style: style,
       decoration: InputDecoration(
+          icon: const Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: const Icon(Icons.person),
+          ),
         contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         hintText: 'Email',
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))
@@ -47,7 +51,12 @@ class _widegetLoginState extends State<widegetLogin> {
     final passwordField = TextField(
       obscureText: true,
       style: style,
+
       decoration: InputDecoration(
+        icon: const Padding(
+          padding: const EdgeInsets.only(top: 15.0),
+          child: const Icon(Icons.lock),
+        ),
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: 'Password',
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))
