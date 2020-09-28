@@ -31,6 +31,11 @@ class _widegetLoginState extends State<widegetLogin> {
 
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   bool _obscuredText = true;
+  TextEditingController useController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  bool isUserValidate = false;
+  bool isPasswordValidate = false;
 
   _toggle(){
     setState(() {
@@ -43,9 +48,11 @@ class _widegetLoginState extends State<widegetLogin> {
   Widget build(BuildContext context) {
 
     final emailField = TextField(
+      controller: passwordController,
       obscureText: false,
       style: style,
       decoration: InputDecoration(
+          errorText: isPasswordValidate ? 'Por favor, entre com email' : null,
           icon: const Padding(
             padding: const EdgeInsets.only(top: 15.0),
             child: const Icon(Icons.person),
@@ -57,10 +64,11 @@ class _widegetLoginState extends State<widegetLogin> {
     );
 
     final passwordField = TextField(
+      controller: useController,
       obscureText: _obscuredText,
       style: style,
-
       decoration: InputDecoration(
+        errorText: isUserValidate ? 'Por favor, entre com a senha' : null,
         icon: const Padding(
           padding: const EdgeInsets.only(top: 15.0),
           child: const Icon(Icons.lock),
@@ -80,6 +88,34 @@ class _widegetLoginState extends State<widegetLogin> {
       },
     );
 
+
+    bool validateUserTextField(String userInput) {
+      if (userInput.isEmpty) {
+        setState(() {
+          isUserValidate = true;
+        });
+        return false;
+      }
+      setState(() {
+        isUserValidate = false;
+      });
+      return true;
+    }
+
+    bool validatePasswordTextField(String userInput) {
+      if (userInput.isEmpty) {
+        setState(() {
+          isPasswordValidate = true;
+        });
+        return false;
+      }
+      setState(() {
+        isPasswordValidate = false;
+      });
+      return true;
+    }
+
+
     final buttonLogin = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width,
       padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -92,7 +128,8 @@ class _widegetLoginState extends State<widegetLogin> {
           ),
         ),
         onPressed: (){
-
+          validateUserTextField(useController.text);
+          validatePasswordTextField(passwordController.text);
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0)
