@@ -30,6 +30,14 @@ class widegetLogin extends StatefulWidget {
 class _widegetLoginState extends State<widegetLogin> {
 
   TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
+  bool _obscuredText = true;
+
+  _toggle(){
+    setState(() {
+      _obscuredText = !_obscuredText;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +57,7 @@ class _widegetLoginState extends State<widegetLogin> {
     );
 
     final passwordField = TextField(
-      obscureText: true,
+      obscureText: _obscuredText,
       style: style,
 
       decoration: InputDecoration(
@@ -59,8 +67,17 @@ class _widegetLoginState extends State<widegetLogin> {
         ),
           contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: 'Password',
+          suffixIcon: FlatButton(
+              onPressed: _toggle,
+              child:Icon(Icons.remove_red_eye,
+                  color: _obscuredText ? Colors.black12 : Colors.black54)),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10.0))
       ),
+      onChanged: (value){
+        setState(() {
+          final _password = value;
+        });
+      },
     );
 
     final buttonLogin = ButtonTheme(
